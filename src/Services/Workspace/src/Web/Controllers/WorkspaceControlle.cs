@@ -1,4 +1,5 @@
 ﻿using Application.Workspace.Commands;
+using Application.Workspace.Commands.DeleteWorkspace;
 using Application.Workspace.Commands.UpdateWorkspace;
 using Application.Workspace.Queries.GetAllWorkspaces;
 using Application.Workspace.Queries.GetWorkspace;
@@ -73,6 +74,18 @@ namespace Web.Controllers
             await this._mediator.Send(command);
             return NoContent();
             }
+        }
+
+        /// <summary>
+        /// Delete Workspace
+        /// </summary>
+        /// <param name="command"> Delete </param>
+        /// <returns></returns>
+        [HttpDelete("id")]
+        public async Task<ActionResult<DeleteWorkspaceReturnDto>> Delete(Guid id)
+        {
+             var result = await this._mediator.Send(new DeleteWorkspaceCommad { WorkspaceId = id });
+            return result;
         }
 
     }

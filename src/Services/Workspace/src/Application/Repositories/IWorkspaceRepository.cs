@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Application.Workspace.Commands;
+using Application.Workspace.Commands.DeleteWorkspace;
 using Application.Workspace.Commands.UpdateWorkspace;
 using Application.Workspace.Queries.GetAllWorkspaces;
 using Application.Workspace.Queries.GetWorkspace;
@@ -50,5 +51,11 @@ namespace Application.Repositories
         /// <returns></returns>
         Task<Core.Entities.Workspace> UpdataAsync(UpdateWorkspaceCommand workspace, ICurrentUserService currentUser, CancellationToken cancellationToken);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="workspace"></param>
+        /// <returns></returns>
+        Task<DeleteWorkspaceReturnDto> DeleteAsync(Guid workspaceId, ICurrentUserService currentUserService, CancellationToken cancellationToken);
     }
 }

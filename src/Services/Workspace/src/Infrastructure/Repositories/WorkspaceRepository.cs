@@ -1,6 +1,8 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Common.Interfaces;
 using Application.Repositories;
 using Application.Workspace.Commands;
+using Application.Workspace.Commands.DeleteWorkspace;
 using Application.Workspace.Commands.UpdateWorkspace;
 using Application.Workspace.Queries.GetAllWorkspaces;
 using Application.Workspace.Queries.GetWorkspace;
@@ -52,6 +54,30 @@ namespace Infrastructure.Repositories
             
         }
 
+        public async Task<DeleteWorkspaceReturnDto> DeleteAsync(Guid workspaceId, ICurrentUserService currentUserService, CancellationToken cancellationToken)
+        {
+            var entity = await _context.Workspaces
+                .Where(e => e.Id == workspaceId)
+                .SingleOrDefaultAsync(cancellationToken)
+                ;
+
+            if(entity == null)
+            {
+                throw new NotFoundException(nameof(Workspace), workspaceId);
+            }
+             _context.Workspaces.Remove(entity);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            var result = new DeleteWorkspaceReturnDto
+            {
+                Name = entity.Name,
+                Description = entity.Description,
+                DeletedBy = currentUserService.UserId,
+                Projects = entity.Projects,
+                DeletedAt = entity.DeletedAt
+            };
+            return result;
+        }
 
         public async Task<WorkspacesDTOLists> GetAllAsync(GetAllWorkspaceQuery request, CancellationToken cancellationToken)
         {
