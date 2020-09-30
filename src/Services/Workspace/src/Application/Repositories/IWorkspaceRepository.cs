@@ -18,8 +18,8 @@ namespace Application.Repositories
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="workspace"></param>
-        /// <returns></returns>
+        /// <param name="workspace,currentUser">CreateWorkspaceCommand,ICurrentUserService</param>
+        /// <returns>Guid</returns>
         Task<Guid> CreateAsync(CreateWorkspaceCommand workspace, ICurrentUserService currentUser);
         
 

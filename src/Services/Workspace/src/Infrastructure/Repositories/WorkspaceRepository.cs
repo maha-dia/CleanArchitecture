@@ -24,20 +24,17 @@ namespace Infrastructure.Repositories
     public class WorkspaceRepository : IWorkspaceRepository
     {
         private readonly ApplicationDbContext _context;
-        
         private readonly IMapper _mapper;
 
         public WorkspaceRepository(ApplicationDbContext context,IMapper mapper)
         {
             this._context = context;
-            
             this._mapper = mapper;
         }
         public async Task<Guid> CreateAsync(CreateWorkspaceCommand workspace, ICurrentUserService currentUserService)
         {
             var NewWorkspace = new Workspace
             {
-                Id = new Guid(),
                 Name = workspace.Name,
                 Description = workspace.Description,
                 Image = workspace.Image,

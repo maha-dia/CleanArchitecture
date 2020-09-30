@@ -10,14 +10,6 @@ namespace Core.Entities
 {
     public class Workspace:AuditableEntity
     {
-        //public Workspace(string name)
-        //{
-        //    this.Id = new Guid();
-        //    this.Name = name;
-        //    this.Description = "";
-
-
-        //}
         public Workspace()
         {
             Projects = new Collection<Project>();

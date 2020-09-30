@@ -23,12 +23,13 @@ namespace Application.Workspace.Commands.CreateWorkspace
         public async Task<Guid> Handle(CreateWorkspaceCommand request, CancellationToken cancellationToken)
         {
             // Check business rules
-            // R01 Asset label is unique
+            // R01 Asset label is requared
             if (request.Name.Equals(""))
             {
-                throw new BusinessRuleException($"Name of workspace {request.Name} is empty,Or");
+                throw new BusinessRuleException($"Name of workspace {request.Name} is empty");
             }
-            else if(!await _workspaceRepository.UniqueName(request.Name, cancellationToken))
+            // R02 Asset label is unique
+            else if (!await _workspaceRepository.UniqueName(request.Name, cancellationToken))
             {
                 throw new BusinessRuleException($"Name of workspace {request.Name} is already exist");
             }

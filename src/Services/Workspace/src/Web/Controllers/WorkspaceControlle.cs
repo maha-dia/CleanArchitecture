@@ -24,13 +24,13 @@ namespace Web.Controllers
         /// <summary>
         /// Create new Workspace
         /// </summary>
-        /// <param name="command"> new </param>
+        /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPost("create")]
-        public async Task<IActionResult> Create(CreateWorkspaceCommand command)
+        [HttpPost]
+        public async Task<ActionResult<Guid>> Create(CreateWorkspaceCommand command)
         {
             var result = await this._mediator.Send(command);
-            return Ok(result);
+            return result;
         }
 
 

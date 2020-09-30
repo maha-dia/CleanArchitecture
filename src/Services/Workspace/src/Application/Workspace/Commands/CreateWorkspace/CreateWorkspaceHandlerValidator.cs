@@ -9,7 +9,8 @@ namespace Application.Workspace.Commands.CreateWorkspace
     {
         public CreateWorkspaceHandlerValidator()
         {
-            this.RuleFor(x => x.Name).NotEmpty().MinimumLength(3).WithMessage("Name length should be at least three character");
+            this.RuleFor(x => x.Name).NotEmpty().MinimumLength(3)
+                .WithMessage("Name length should be at least three character");
 
         }
     }
