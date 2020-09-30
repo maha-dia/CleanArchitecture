@@ -8,17 +8,18 @@ using System.Threading;
 
 namespace UnitTest.Workspace
 {
-    public class BaseWorkspaceMock
+    public class BaseMock
     {
         protected readonly Mock<IProjectRepository> _projectRepositoryMock;
+        protected readonly Mock<IMethodesRepository> _methodesRepositoryMock;
         protected readonly Mock<IWorkspaceRepository> _workspaceRepositoryMock;
         protected readonly Mock<ICurrentUserService> _currentUserMock;
-         public BaseWorkspaceMock()
+         public BaseMock()
         {
             this._currentUserMock = new Mock<ICurrentUserService>();
             this._workspaceRepositoryMock = new Mock<IWorkspaceRepository>();
             this._projectRepositoryMock = new Mock<IProjectRepository>();
-            
+            this._methodesRepositoryMock = new Mock<IMethodesRepository>();
         }
     }
 }

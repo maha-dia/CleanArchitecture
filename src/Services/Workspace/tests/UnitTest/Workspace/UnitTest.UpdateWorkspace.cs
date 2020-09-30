@@ -7,7 +7,7 @@ using Xunit;
 
 namespace UnitTest.Workspace
 {
-    public class UpdateWorkspaceTests:BaseWorkspaceMock
+    public class UpdateWorkspaceTests:BaseMock
     {
         [Fact]
         public async void ValidRequest_SouldChangeWorkspace()

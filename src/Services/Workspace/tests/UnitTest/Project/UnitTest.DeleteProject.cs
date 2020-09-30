@@ -9,7 +9,7 @@ using Xunit;
 
 namespace UnitTest.Project
 {
-    public class DeleteProjectTests:BaseWorkspaceMock
+    public class DeleteProjectTests:BaseMock
     {
         [Fact]
         public async void EmptyGuidProject_ShouldThrowAnException()

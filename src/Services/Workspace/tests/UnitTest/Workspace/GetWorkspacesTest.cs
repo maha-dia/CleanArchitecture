@@ -7,7 +7,7 @@ using Xunit;
 
 namespace UnitTest.Workspace
 {
-    public class GetWorkspacesTest : BaseWorkspaceMock
+    public class GetWorkspacesTest : BaseMock
     {
         [Fact]
 

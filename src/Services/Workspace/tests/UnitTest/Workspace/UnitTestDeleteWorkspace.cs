@@ -8,7 +8,7 @@ using Xunit;
 
 namespace UnitTest.Workspace
 {
-    public class UnitTestDeleteWorkspace: BaseWorkspaceMock
+    public class UnitTestDeleteWorkspace: BaseMock
     {
         [Fact]
         public async void InvalidGuidWorkspace_ShouldRetournException()

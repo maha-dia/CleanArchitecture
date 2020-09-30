@@ -26,8 +26,8 @@ namespace Application.Repositories
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="workspace"></param>
-        /// <returns></returns>
+        /// <param name="workspaceId">Guid</param>
+        /// <returns>Workspace</returns>
         Task<Core.Entities.Workspace> GetAsync(Guid workspaceId);
 
 

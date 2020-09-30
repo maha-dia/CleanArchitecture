@@ -10,7 +10,7 @@ using Xunit;
 
 namespace UnitTest.Project
 {
-    public class UpdateProjectUnitTests:BaseWorkspaceMock
+    public class UpdateProjectUnitTests:BaseMock
     {
         [Fact]
         public async void InValidCommand_ShouldThrowException()

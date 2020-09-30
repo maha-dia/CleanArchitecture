@@ -9,7 +9,7 @@ using Xunit;
 
 namespace UnitTest.Project
 {
-    public class UnitTest:BaseWorkspaceMock
+    public class UnitTest:BaseMock
     {
         [Fact]
         public async void ValidCommand_ShouldReturnProjectId()

@@ -8,7 +8,7 @@ using Xunit;
 
 namespace UnitTest.Workspace
 {
-    public class ApplicationTest:BaseWorkspaceMock
+    public class ApplicationTest:BaseMock
     {
         [Fact]
         public async void ValidCommand_SouldReturneWorkspaceGuid()
@@ -20,12 +20,14 @@ namespace UnitTest.Workspace
                 Description="working on ai project",
                 Image="lena.jpg"
             };
-
+            this._methodesRepositoryMock.Setup(y=>y.UniqueName(command.Name, new System.Threading.CancellationToken())).ReturnsAsync(true);
             this._workspaceRepositoryMock.Setup(x => x.CreateAsync(command, _currentUserMock.Object))
                 .ReturnsAsync(Guid.NewGuid());
 
             //Act
-            var handler = new CreateWorkspaceHandler(_workspaceRepositoryMock.Object, _currentUserMock.Object);
+            var handler = new CreateWorkspaceHandler(_workspaceRepositoryMock.Object,
+                                                     _currentUserMock.Object,
+                                                     _methodesRepositoryMock.Object);
             var workspaceId = await handler.Handle(command, new System.Threading.CancellationToken());
 
             //Assert
@@ -47,10 +49,12 @@ namespace UnitTest.Workspace
                 .ReturnsAsync(Guid.NewGuid());
 
             // Act
-            var handler = new CreateWorkspaceHandler(_workspaceRepositoryMock.Object, _currentUserMock.Object); 
+            var handler = new CreateWorkspaceHandler(_workspaceRepositoryMock.Object,
+                                                     _currentUserMock.Object,
+                                                     _methodesRepositoryMock.Object);
             // Assert
-             await Assert.ThrowsAsync<BusinessRuleException>(
-                 ()=>handler.Handle(command, new System.Threading.CancellationToken()));
+            await Assert.ThrowsAsync<BusinessRuleException>(
+                () => handler.Handle(command, new System.Threading.CancellationToken()));
         }
 
         [Fact]
@@ -63,11 +67,13 @@ namespace UnitTest.Workspace
                 Description = "working on ai project",
                 Image = "lena.jpg"
             };
-            this._workspaceRepositoryMock.Setup(x => x.UniqueName(command.Name, new System.Threading.CancellationToken()))
+            this._methodesRepositoryMock.Setup(x => x.UniqueName(command.Name, new System.Threading.CancellationToken()))
                 .ReturnsAsync(false);
 
             // Act
-            var handler = new CreateWorkspaceHandler(_workspaceRepositoryMock.Object, _currentUserMock.Object);
+            var handler = new CreateWorkspaceHandler(_workspaceRepositoryMock.Object,
+                                                     _currentUserMock.Object,
+                                                     _methodesRepositoryMock.Object);
             // Assert
             await Assert.ThrowsAsync<BusinessRuleException>(
                 () => handler.Handle(command, new System.Threading.CancellationToken()));

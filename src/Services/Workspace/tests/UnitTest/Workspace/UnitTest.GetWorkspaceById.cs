@@ -8,7 +8,7 @@ using Xunit;
 
 namespace UnitTest.Workspace
 {
-    public class GetWorkspaceByIdTests: BaseWorkspaceMock
+    public class GetWorkspaceByIdTests: BaseMock
     {
         [Fact]
         public async void ShouldGiveValideGuidIdRequest()
