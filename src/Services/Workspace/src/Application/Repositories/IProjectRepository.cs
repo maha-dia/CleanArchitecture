@@ -1,8 +1,13 @@
 ﻿using Application.Common.Interfaces;
 using Application.Project.Commands;
+using Application.Project.Commands.DeleteProject;
+using Application.Project.Commands.UpdateProject;
+using Application.Project.Queries.GetProjectById;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Repositories
@@ -15,5 +20,26 @@ namespace Application.Repositories
         /// <param name="Project"></param>
         /// <returns></returns>
         Task<Guid> CreateAsync(CreateProjectCommand command,Core.Entities.Workspace workspace,ICurrentUserService currentUserService);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Project"></param>
+        /// <returns></returns>
+        Task<Core.Entities.Project> GetAsync(GetProjectByIdQuery query);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Project"></param>
+        /// <returns></returns>
+        Task<Unit> UpdateAsync(UpdateProjectCommand query,ICurrentUserService currentUserService);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Project"></param>
+        /// <returns></returns>
+        Task<DeleteProjectDto> DeleteAsync(DeleteProjectCommand query, ICurrentUserService currentUserService, CancellationToken cancellationToken);
     }
 }

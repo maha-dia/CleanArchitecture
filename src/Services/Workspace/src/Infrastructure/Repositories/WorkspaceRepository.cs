@@ -110,7 +110,6 @@ namespace Infrastructure.Repositories
             var workspaceData =await GetAsync(workspace.WorkspaceId);
             if (workspaceData != null)
             {
-                
                 workspaceData.Name = workspace.Name;
                 workspaceData.Description = workspace.Description;
                 workspaceData.Image = workspace.Image;
