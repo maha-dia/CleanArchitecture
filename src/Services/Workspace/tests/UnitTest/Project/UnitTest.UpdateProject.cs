@@ -35,7 +35,7 @@ namespace UnitTest.Project
             };
 
             _projectRepositoryMock.Setup(x => x.GetAsync(It.IsAny<GetProjectByIdQuery>())).ReturnsAsync(project);
-            _workspaceRepositoryMock.Setup(y => y.UniqueName(project.Label, new System.Threading.CancellationToken())).ReturnsAsync(true);
+            //_workspaceRepositoryMock.Setup(y => y.UniqueName(project.Label, new System.Threading.CancellationToken())).ReturnsAsync(true);
             _projectRepositoryMock.Setup(z => z.UpdateAsync(request, _currentUserMock.Object));
 
             var handler = new UpdateProjectCommandHandler(_projectRepositoryMock.Object, _workspaceRepositoryMock.Object, _currentUserMock.Object);

@@ -14,24 +14,23 @@ namespace Application.Workspace.Commands.CreateWorkspace
     {
         private readonly IWorkspaceRepository _workspaceRepository;
         private readonly ICurrentUserService _currentUserService;
+        private readonly IMethodesRepository _methodesRepository;
 
-        public CreateWorkspaceHandler(IWorkspaceRepository workspaceRepository,ICurrentUserService currentUserService)
+        public CreateWorkspaceHandler(IWorkspaceRepository workspaceRepository,
+                                      ICurrentUserService currentUserService,
+                                      IMethodesRepository methodesRepository)
         {
             this._workspaceRepository = workspaceRepository;
             this._currentUserService = currentUserService;
+            this._methodesRepository = methodesRepository;
         }
         public async Task<Guid> Handle(CreateWorkspaceCommand request, CancellationToken cancellationToken)
         {
-            // Check business rules
-            // R01 Asset label is requared
-            if (request.Name.Equals(""))
+
+            // R01 Asset label is unique
+            if (!await _methodesRepository.UniqueName(request.Name, cancellationToken))
             {
-                throw new BusinessRuleException($"Name of workspace {request.Name} is empty");
-            }
-            // R02 Asset label is unique
-            else if (!await _workspaceRepository.UniqueName(request.Name, cancellationToken))
-            {
-                throw new BusinessRuleException($"Name of workspace {request.Name} is already exist");
+                throw new BusinessRuleException($" The specified Name '{request.Name}' already exists.");
             }
             else
             {

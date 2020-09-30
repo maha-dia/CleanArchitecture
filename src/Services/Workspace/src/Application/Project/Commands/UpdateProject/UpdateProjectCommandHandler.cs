@@ -38,12 +38,12 @@ namespace Application.Project.Commands.UpdateProject
             {
                 throw new BusinessRuleException("invalid parameter");
             }
-            var exist = await _workspaceRepository.UniqueName(request.Label, cancellationToken);
-            if(!exist)
-            {
-                throw new BusinessRuleException("is alredy exist");
+            //var exist = await _workspaceRepository.UniqueName(request.Label, cancellationToken);
+            //if(!exist)
+            //{
+            //    throw new BusinessRuleException("is alredy exist");
 
-            }
+            //}
             await _projectRepository.UpdateAsync(request, _currentUserService);
 
             return Unit.Value;

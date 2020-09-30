@@ -41,7 +41,7 @@ namespace UnitTest.Workspace
                 BookMark = true
             };
             this._workspaceRepositoryMock.Setup(y => y.GetAsync(command.WorkspaceId)).ReturnsAsync(workspaceexistdatabase);
-            this._workspaceRepositoryMock.Setup(x => x.UniqueName(command.Name, new System.Threading.CancellationToken())).ReturnsAsync(true);
+            //this._workspaceRepositoryMock.Setup(x => x.UniqueName(command.Name, new System.Threading.CancellationToken())).ReturnsAsync(true);
             this._workspaceRepositoryMock.Setup(z => z.UpdataAsync(command, _currentUserMock.Object, new System.Threading.CancellationToken())).ReturnsAsync(workspaceCommand);
 
             //Act

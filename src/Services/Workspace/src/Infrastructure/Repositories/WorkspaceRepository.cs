@@ -96,12 +96,7 @@ namespace Infrastructure.Repositories
 
         }
 
-        public async Task<bool> UniqueName(string name, CancellationToken cancellationToken)
-        {
-            return await _context.Workspaces
-                .AllAsync(n => n.Name != name);
-        }
-
+       
         public async Task<Core.Entities.Workspace> UpdataAsync(UpdateWorkspaceCommand workspace, ICurrentUserService currentUser, CancellationToken cancellationToken)
         {
             var workspaceData =await GetAsync(workspace.WorkspaceId);

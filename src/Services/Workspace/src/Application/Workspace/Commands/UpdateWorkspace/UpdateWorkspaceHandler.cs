@@ -26,10 +26,10 @@ namespace Application.Workspace.Commands.UpdateWorkspace
             {
                 throw new BusinessRuleException($"Name of workspace {request.Name} is empty,Or");
             }
-            else if (!await _workspaceRepository.UniqueName(request.Name, cancellationToken))
-            {
-                throw new BusinessRuleException($"Name of workspace {request.Name} is already exist");
-            }
+            //else if (!await _workspaceRepository.UniqueName(request.Name, cancellationToken))
+            //{
+            //    throw new BusinessRuleException($"Name of workspace {request.Name} is already exist");
+            //}
             else
             {
                 var isExsit = await this._workspaceRepository.GetAsync(request.WorkspaceId);

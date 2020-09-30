@@ -30,12 +30,6 @@ namespace Application.Repositories
         /// <returns></returns>
         Task<Core.Entities.Workspace> GetAsync(Guid workspaceId);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="workspace"></param>
-        /// <returns></returns>
-        Task<Boolean> UniqueName(string name, CancellationToken cancellationToken);
 
         /// <summary>
         /// 

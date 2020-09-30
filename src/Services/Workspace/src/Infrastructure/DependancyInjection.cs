@@ -25,6 +25,7 @@ namespace Infrastructure
             service.AddTransient<IDateTime, DateTimeService>();
             service.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
             service.AddScoped<IProjectRepository, ProjectRepository>();
+            service.AddScoped<IMethodesRepository, MethodesRepository>();
             return service;
         }
 
