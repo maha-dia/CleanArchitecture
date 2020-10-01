@@ -19,16 +19,8 @@ namespace Application.Workspace.Queries.GetWorkspace
         }
         public async Task<Core.Entities.Workspace> Handle(GetWorkspaceByIdQuery request, CancellationToken cancellationToken)
         {
-            if(request.WorkspaceRequestId == Guid.Empty)
-            {
-                throw new BusinessRuleException("Workspace is requered ");
-            }
-            else
-            {
-                var workspace = await _workspaceRepository.GetAsync(request.WorkspaceRequestId);
+                var workspace = await _workspaceRepository.GetAsync(request);
                 return workspace;
-            }
-            
         }
     }
 }

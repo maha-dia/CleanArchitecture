@@ -21,35 +21,35 @@ namespace Application.Repositories
         /// <param name="workspace,currentUser">CreateWorkspaceCommand,ICurrentUserService</param>
         /// <returns>Guid</returns>
         Task<Guid> CreateAsync(CreateWorkspaceCommand workspace, ICurrentUserService currentUser);
-        
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="workspaceId">Guid</param>
-        /// <returns>Workspace</returns>
-        Task<Core.Entities.Workspace> GetAsync(Guid workspaceId);
 
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="workspace"></param>
-        /// <returns></returns>
+        /// <param name="workspaceId">GetWorkspaceByIdQuery</param>
+        /// <returns>Workspace Entity "//TODO dto"</returns>
+        Task<Core.Entities.Workspace> GetAsync(GetWorkspaceByIdQuery workspaceId);
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request,cancellationToken">GetAllWorkspaceQuery,CancellationToken</param>
+        /// <returns>WorkspacesDTOLists</returns>
         Task<WorkspacesDTOLists> GetAllAsync(GetAllWorkspaceQuery request, CancellationToken cancellationToken);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="workspace"></param>
-        /// <returns></returns>
+        /// <param name="workspace">UpdateWorkspaceCommand</param>
+        /// <returns>Workspace</returns>
         Task<Core.Entities.Workspace> UpdataAsync(UpdateWorkspaceCommand workspace, ICurrentUserService currentUser, CancellationToken cancellationToken);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="workspace"></param>
-        /// <returns></returns>
-        Task<DeleteWorkspaceReturnDto> DeleteAsync(Guid workspaceId, ICurrentUserService currentUserService, CancellationToken cancellationToken);
+        /// <param name="workspaceId,currentUserService,cancellationToken">DeleteWorkspaceCommad</param>
+        /// <returns>DeleteWorkspaceReturnDto</returns>
+        Task<DeleteWorkspaceReturnDto> DeleteAsync(DeleteWorkspaceCommad workspaceId, ICurrentUserService currentUserService, CancellationToken cancellationToken);
     }
 }

@@ -20,7 +20,7 @@ namespace UnitTest.Workspace
             };
             var workspace = new Core.Entities.Workspace { };
             var workspacedto = new DeleteWorkspaceReturnDto { };
-            _workspaceRepositoryMock.Setup(y => y.DeleteAsync(request.WorkspaceId, _currentUserMock.Object, new System.Threading.CancellationToken())).ReturnsAsync(workspacedto);
+            _workspaceRepositoryMock.Setup(y => y.DeleteAsync(request, _currentUserMock.Object, new System.Threading.CancellationToken())).ReturnsAsync(workspacedto);
 
             //Act
             var handler = new DeleteWorkspaceHandler(_workspaceRepositoryMock.Object, _currentUserMock.Object);

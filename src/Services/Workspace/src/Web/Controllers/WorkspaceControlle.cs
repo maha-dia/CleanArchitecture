@@ -35,26 +35,26 @@ namespace Web.Controllers
 
 
         /// <summary>
-        /// Get an Workspace by Id
+        /// Get Workspace by Id
         /// </summary>
-        /// <param name="requestId">  </param>
+        /// <param name="requestId">GetWorkspaceByIdQuery</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] GetWorkspaceByIdQuery requestId)
+        public async Task<ActionResult<Core.Entities.Workspace>> Get([FromQuery] GetWorkspaceByIdQuery requestId)
         {
             var result = await this._mediator.Send(requestId);
-            return Ok(result);
+            return result;
         }
 
         /// <summary>
         /// Get all Workspaces 
         /// </summary>
-        /// <param name="requestId">  </param>
-        /// <returns></returns>
-        [HttpGet("getAll")]
-        public async Task<ActionResult<WorkspacesDTOLists>> GetAll()
+        /// <param name="query">GetAllWorkspaceQuery</param>
+        /// <returns>WorkspacesDTOLists</returns>
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<WorkspacesDTOLists>> GetAll([FromQuery] GetAllWorkspaceQuery query)
         {
-            var result = await this._mediator.Send(new GetAllWorkspaceQuery());
+            var result = await this._mediator.Send(query);
             return result;
         }
 
@@ -63,16 +63,16 @@ namespace Web.Controllers
         /// </summary>
         /// <param name="command"> new </param>
         /// <returns></returns>
-        [HttpPut("id")]
-        public async Task<IActionResult> Update(Guid id,UpdateWorkspaceCommand command)
+        [HttpPut]
+        public async Task<ActionResult<Core.Entities.Workspace>> Update(UpdateWorkspaceCommand command)
         {
-           if(id != command.WorkspaceId)
+           if(command.WorkspaceId != command.WorkspaceId)
             {
                 return BadRequest();
             }
             else { 
-            await this._mediator.Send(command);
-            return NoContent();
+            var result =await this._mediator.Send(command);
+                return result;
             }
         }
 

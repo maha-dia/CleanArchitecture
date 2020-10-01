@@ -11,7 +11,7 @@ namespace UnitTest.Workspace
     {
         [Fact]
 
-        public async void ShouldGiveAllWorkspacest()
+        public async void AValidQuery_ShouldGiveAllWorkspacest()
         {
             //Arrage
             var request = new GetAllWorkspaceQuery { };
@@ -44,7 +44,7 @@ namespace UnitTest.Workspace
             var workspaceList = await handler.Handle(request, new System.Threading.CancellationToken());
 
             //Assert
-            Assert.NotEqual(null, workspaceList);
+            Assert.NotNull(workspaceList);
 
         }
     

@@ -7,6 +7,7 @@
   <ItemGroup>
     <None Remove="Common\Behaviours\kstwqkx1.51d~" />
     <None Remove="DependencyInjection.cs~RFee2f49d.TMP" />
+    <None Remove="Workspace\Commands\DeleteWorkspace\DeleteWorkspaceHandler.cs~RFc1971dc.TMP" />
   </ItemGroup>
 
   <ItemGroup>

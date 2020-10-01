@@ -1,4 +1,5 @@
 ﻿using Application.Workspace.Commands.UpdateWorkspace;
+using Application.Workspace.Queries.GetWorkspace;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -40,12 +41,13 @@ namespace UnitTest.Workspace
                 IsPrivate = false,
                 BookMark = true
             };
-            this._workspaceRepositoryMock.Setup(y => y.GetAsync(command.WorkspaceId)).ReturnsAsync(workspaceexistdatabase);
-            //this._workspaceRepositoryMock.Setup(x => x.UniqueName(command.Name, new System.Threading.CancellationToken())).ReturnsAsync(true);
+            var queryId = new GetWorkspaceByIdQuery { WorkspaceRequestId = command.WorkspaceId } ;
+            this._workspaceRepositoryMock.Setup(y => y.GetAsync(It.IsAny<GetWorkspaceByIdQuery>())).ReturnsAsync(workspaceexistdatabase);
+            this._methodesRepositoryMock.Setup(x => x.UniqueName(command.Name, new System.Threading.CancellationToken())).ReturnsAsync(true);
             this._workspaceRepositoryMock.Setup(z => z.UpdataAsync(command, _currentUserMock.Object, new System.Threading.CancellationToken())).ReturnsAsync(workspaceCommand);
 
             //Act
-            var handler = new UpdateWorkspaceHandler(_workspaceRepositoryMock.Object, _currentUserMock.Object);
+            var handler = new UpdateWorkspaceHandler(_workspaceRepositoryMock.Object,_methodesRepositoryMock.Object, _currentUserMock.Object);
             var workspaceUpdated = await handler.Handle(command, new System.Threading.CancellationToken());
 
             //Assert

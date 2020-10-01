@@ -9,8 +9,7 @@ namespace Application.Workspace.Queries.GetWorkspace
     {
         public GetWorkspaceByIdHandlerVlidator()
         {
-            this.RuleFor(x => x.WorkspaceRequestId).NotEmpty();
-
+            this.RuleFor(x => x.WorkspaceRequestId).NotEmpty().WithMessage("Id is required");
         }
     }
 }

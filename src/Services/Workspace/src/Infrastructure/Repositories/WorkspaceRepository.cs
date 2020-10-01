@@ -51,10 +51,10 @@ namespace Infrastructure.Repositories
             
         }
 
-        public async Task<DeleteWorkspaceReturnDto> DeleteAsync(Guid workspaceId, ICurrentUserService currentUserService, CancellationToken cancellationToken)
+        public async Task<DeleteWorkspaceReturnDto> DeleteAsync(DeleteWorkspaceCommad workspaceId, ICurrentUserService currentUserService, CancellationToken cancellationToken)
         {
             var entity = await _context.Workspaces
-                .Where(e => e.Id == workspaceId)
+                .Where(e => e.Id == workspaceId.WorkspaceId)
                 .SingleOrDefaultAsync(cancellationToken)
                 ;
 
@@ -87,19 +87,21 @@ namespace Infrastructure.Repositories
         
         }
 
-        public async Task<Workspace> GetAsync(Guid workspaceId)
+        public async Task<Workspace> GetAsync(GetWorkspaceByIdQuery queryId)
         {
-            var query = _context.Workspaces.Where(w => w.Id == workspaceId).Include(w=> w.Projects);
+            var query = _context.Workspaces.Where(w => w.Id == queryId.WorkspaceRequestId)
+                .Include(w=> w.Projects).OrderBy(n=>n.Created);
             var Workspace = await query.FirstOrDefaultAsync();
-                
             return Workspace;
-
         }
 
-       
+
         public async Task<Core.Entities.Workspace> UpdataAsync(UpdateWorkspaceCommand workspace, ICurrentUserService currentUser, CancellationToken cancellationToken)
         {
-            var workspaceData =await GetAsync(workspace.WorkspaceId);
+            var query = new GetWorkspaceByIdQuery { 
+                WorkspaceRequestId=workspace.WorkspaceId
+            };
+            var workspaceData = await GetAsync(query);
             if (workspaceData != null)
             {
                 workspaceData.Name = workspace.Name;
@@ -108,8 +110,8 @@ namespace Infrastructure.Repositories
                 workspaceData.BookMark = workspace.BookMark;
                 workspaceData.IsPrivate = workspace.IsPrivate;
                 workspaceData.CreatedBy = currentUser.UserId;
-            
-            await this._context.SaveChangesAsync(cancellationToken);
+
+                await this._context.SaveChangesAsync(cancellationToken);
 
             }
             return workspaceData;

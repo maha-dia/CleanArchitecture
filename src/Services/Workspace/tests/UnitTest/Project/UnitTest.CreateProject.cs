@@ -27,8 +27,8 @@ namespace UnitTest.Project
                 Description = "jsjsjjssjjsjjksjksjksjkjkskjkjksjks",
                 Id=command.WorkspaceId
             };
-            this._projectRepositoryMock.Setup(x => x.CreateAsync(command,workspace, _currentUserMock.Object)).ReturnsAsync(Guid.NewGuid());
-            this._workspaceRepositoryMock.Setup(w => w.GetAsync(command.WorkspaceId)).ReturnsAsync(workspace);
+            //this._projectRepositoryMock.Setup(x => x.CreateAsync(command,workspace, _currentUserMock.Object)).ReturnsAsync(Guid.NewGuid());
+            //this._workspaceRepositoryMock.Setup(w => w.GetAsync(command.WorkspaceId)).ReturnsAsync(workspace);
 
             //Act
             var handler = new CreateProjectHandler(_workspaceRepositoryMock.Object, _projectRepositoryMock.Object, _currentUserMock.Object);
@@ -52,7 +52,7 @@ namespace UnitTest.Project
 
             this._projectRepositoryMock.Setup(p => p.CreateAsync(command, null, _currentUserMock.Object))
                 .ReturnsAsync(Guid.NewGuid());
-            this._workspaceRepositoryMock.Setup(w => w.GetAsync(command.WorkspaceId));
+            //this._workspaceRepositoryMock.Setup(w => w.GetAsync(command.WorkspaceId));
 
             //Act
             var handler = new CreateProjectHandler(_workspaceRepositoryMock.Object, _projectRepositoryMock.Object, _currentUserMock.Object);

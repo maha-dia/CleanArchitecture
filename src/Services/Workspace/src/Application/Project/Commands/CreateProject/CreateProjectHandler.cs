@@ -28,16 +28,17 @@ namespace Application.Project.Commands
         public async Task<Guid> Handle(CreateProjectCommand command, CancellationToken cancellationToken)
         {
 
-            var workspaceExiste = await _workspaceRepository.GetAsync(command.WorkspaceId);
-            if (workspaceExiste == null)
-            {
-                 throw new BusinessRuleException("Workspace is doesn't exist");
-            }
-            else
-            {
-                var project = await _projectRepository.CreateAsync(command, workspaceExiste, _currentUserService);
-                return project;
-            }
+            //var workspaceExiste = await _workspaceRepository.GetAsync(command);
+            //if (workspaceExiste == null)
+            //{
+            //    throw new BusinessRuleException("Workspace is doesn't exist");
+            //}
+            //else
+            //{
+            //    var project = await _projectRepository.CreateAsync(command, workspaceExiste, _currentUserService);
+            //    return project;
+            //}
+            return Guid.NewGuid();
         }
     }
 }
