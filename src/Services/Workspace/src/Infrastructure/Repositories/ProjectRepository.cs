@@ -46,14 +46,14 @@ namespace Infrastructure.Repositories
             return project.Label;
         }
 
-        public async Task<DeleteProjectDto> DeleteAsync(DeleteProjectCommand query, ICurrentUserService currentUserService, CancellationToken cancellationToken)
+        public async Task<DeleteProjectDto> DeleteAsync(DeleteProjectCommand query, ICurrentUserService currentUserService)
         {
             var project =  await _context.projects
                 .Where(e => e.ProjectId == query.ProjectId)
-                .SingleOrDefaultAsync(cancellationToken)
-                ;
+                .SingleOrDefaultAsync();
              _context.projects.Remove(project);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync();
+            //SRP!!
             var result = new DeleteProjectDto
             {
                 DeletedAt = project.DeletedAt,

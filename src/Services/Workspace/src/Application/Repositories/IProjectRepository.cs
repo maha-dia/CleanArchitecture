@@ -38,8 +38,8 @@ namespace Application.Repositories
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="Project"></param>
-        /// <returns></returns>
-        Task<DeleteProjectDto> DeleteAsync(DeleteProjectCommand query, ICurrentUserService currentUserService, CancellationToken cancellationToken);
+        /// <param name="query,currentUserService">DeleteProjectCommand, ICurrentUserService</param>
+        /// <returns>DeleteProjectDto</returns>
+        Task<DeleteProjectDto> DeleteAsync(DeleteProjectCommand query, ICurrentUserService currentUserService);
     }
 }

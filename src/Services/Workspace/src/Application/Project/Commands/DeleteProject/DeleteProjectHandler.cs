@@ -26,7 +26,7 @@ namespace Application.Project.Commands.DeleteProject
             {
                 throw new BusinessRuleException($"this {request.ProjectId} is empty");
             }
-            var result = _projectRepository.DeleteAsync(request, _currentUserService, cancellationToken);
+            var result = _projectRepository.DeleteAsync(request, _currentUserService);
             return result;
 
             

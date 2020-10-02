@@ -59,10 +59,10 @@ namespace Web.Controllers
         /// </summary>
         /// <param name="command"> Delete </param>
         /// <returns></returns>
-        [HttpDelete("id")]
-        public async Task<ActionResult<DeleteProjectDto>> Delete(Guid id)
+        [HttpDelete]
+        public async Task<ActionResult<DeleteProjectDto>> Delete(DeleteProjectCommand command)
         {
-            var result = await this._mediator.Send(new DeleteProjectCommand { ProjectId = id });
+            var result = await this._mediator.Send(command);
             return result;
         }
     }

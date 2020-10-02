@@ -19,12 +19,7 @@ namespace UnitTest.Project
                 ProjectId = Guid.Empty,
             };
 
-            var projectDto = new DeleteProjectDto
-            {
-                ProjectId=command.ProjectId,
-            };
-
-            _projectRepositoryMock.Setup(x => x.DeleteAsync(command, _currentUserMock.Object, new System.Threading.CancellationToken())).ReturnsAsync(projectDto);
+            _projectRepositoryMock.Setup(x => x.DeleteAsync(command, _currentUserMock.Object));
             var handler =  new DeleteProjectHandler(_projectRepositoryMock.Object, _currentUserMock.Object);
             //Assert
             await Assert.ThrowsAsync<BusinessRuleException>(
