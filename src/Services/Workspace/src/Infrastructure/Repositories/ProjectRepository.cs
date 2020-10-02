@@ -31,11 +31,10 @@ namespace Infrastructure.Repositories
             _context = context;
 
         }
-        public async Task<Guid> CreateAsync(CreateProjectCommand command,Workspace workspace, ICurrentUserService _currentUserService)
+        public async Task<string> CreateAsync(CreateProjectCommand command,Workspace workspace, ICurrentUserService _currentUserService)
         {
             var project = new Project
             {
-                ProjectId = new Guid(),
                 Label = command.Label,
                 Description = command.Description,
                 CreatedBy = _currentUserService.UserId,
@@ -44,8 +43,7 @@ namespace Infrastructure.Repositories
 
             await _context.AddAsync(project);
             await _context.SaveChangesAsync();
-            return project.ProjectId;
-
+            return project.Label;
         }
 
         public async Task<DeleteProjectDto> DeleteAsync(DeleteProjectCommand query, ICurrentUserService currentUserService, CancellationToken cancellationToken)

@@ -11,8 +11,8 @@ namespace Application.Repositories
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="workspace"></param>
-        /// <returns></returns>
+        /// <param name="name,cancellationToken">string,CancellationToken</param>
+        /// <returns>Boolean</returns>
         Task<Boolean> UniqueName(string name, CancellationToken cancellationToken);
     }
 }

@@ -41,7 +41,7 @@ namespace UnitTest.Workspace
                 IsPrivate = false,
                 BookMark = true
             };
-            var queryId = new GetWorkspaceByIdQuery { WorkspaceRequestId = command.WorkspaceId } ;
+            //var queryId = new GetWorkspaceByIdQuery { WorkspaceRequestId = command.WorkspaceId } ;
             this._workspaceRepositoryMock.Setup(y => y.GetAsync(It.IsAny<GetWorkspaceByIdQuery>())).ReturnsAsync(workspaceexistdatabase);
             this._methodesRepositoryMock.Setup(x => x.UniqueName(command.Name, new System.Threading.CancellationToken())).ReturnsAsync(true);
             this._workspaceRepositoryMock.Setup(z => z.UpdataAsync(command, _currentUserMock.Object, new System.Threading.CancellationToken())).ReturnsAsync(workspaceCommand);

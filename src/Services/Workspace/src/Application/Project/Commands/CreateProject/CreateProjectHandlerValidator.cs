@@ -11,7 +11,7 @@ namespace Application.Project.Commands
         {
             this.RuleFor(p => p.Label).NotEmpty().MinimumLength(3).WithMessage("Name length should be at least three character");
 
-            this.RuleFor(p => p.WorkspaceId).NotEmpty().WithMessage("This new Project shoud belongs to an exist workspace.");
+            this.RuleFor(p => p.WorkspaceId).NotEmpty().WithMessage("This new Project should belong to an existing workspace.");
 
         }
     }

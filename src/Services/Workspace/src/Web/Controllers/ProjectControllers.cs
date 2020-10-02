@@ -23,14 +23,15 @@ namespace Web.Controllers
         /// <summary>
         /// Create new Project
         /// </summary>
-        /// <param name="command"> new </param>
-        /// <returns></returns>
-        [HttpPost("create")]
-        public async Task<IActionResult> Create(CreateProjectCommand command)
+        /// <param name="command"> CreateProjectCommand </param>
+        /// <returns>string</returns>
+        [HttpPost]
+        public async Task<ActionResult<string>> Create(CreateProjectCommand command)
         {
             var result = await this._mediator.Send(command);
-            return Ok(result);
+            return result;
         }
+
         /// <summary>
         /// Get Project
         /// </summary>

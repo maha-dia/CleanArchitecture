@@ -17,9 +17,9 @@ namespace Application.Repositories
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="Project"></param>
+        /// <param name="command,workspace,currentUserService">CreateProjectCommand,Workspace,ICurrentUserService</param>
         /// <returns></returns>
-        Task<Guid> CreateAsync(CreateProjectCommand command,Core.Entities.Workspace workspace,ICurrentUserService currentUserService);
+        Task<string> CreateAsync(CreateProjectCommand command,Core.Entities.Workspace workspace,ICurrentUserService currentUserService);
 
         /// <summary>
         /// 
