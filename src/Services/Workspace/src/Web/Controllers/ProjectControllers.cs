@@ -35,9 +35,9 @@ namespace Web.Controllers
         /// <summary>
         /// Get Project
         /// </summary>
-        /// <param name="command"> </param>
-        /// <returns></returns>
-        [HttpGet("{id}")]
+        /// <param name="query"> GetProjectByIdQuery</param>
+        /// <returns>Project</returns>
+        [HttpGet]
         public async Task<ActionResult<Core.Entities.Project>> GetById([FromQuery] GetProjectByIdQuery query)
         {
             var result = await this._mediator.Send(query);

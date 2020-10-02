@@ -24,8 +24,8 @@ namespace Application.Repositories
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="Project"></param>
-        /// <returns></returns>
+        /// <param name="query">GetProjectByIdQuery</param>
+        /// <returns>Project Or TODO Dto</returns>
         Task<Core.Entities.Project> GetAsync(GetProjectByIdQuery query);
 
         /// <summary>
