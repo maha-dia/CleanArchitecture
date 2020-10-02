@@ -23,30 +23,56 @@ namespace UnitTest.Project
                 Icon = "nouvelle icon"
             };
 
-            var getEntity = new GetProjectByIdQuery
-            {
-                Id = request.ProjectId,
-            };
-            var project = new Core.Entities.Project {
-                ProjectId = Guid.Parse("CE854229-F5E7-4CCE-603B-08D85FD832A3"),
-                Label = " label",
-                Description = "description",
-                Icon = " icon"
-            };
+            var project = new Core.Entities.Project{};
 
-            _projectRepositoryMock.Setup(x => x.GetAsync(It.IsAny<GetProjectByIdQuery>())).ReturnsAsync(project);
-            //_workspaceRepositoryMock.Setup(y => y.UniqueName(project.Label, new System.Threading.CancellationToken())).ReturnsAsync(true);
-            _projectRepositoryMock.Setup(z => z.UpdateAsync(request, _currentUserMock.Object));
+            _projectRepositoryMock.Setup(x => x.GetAsync(It.IsAny<GetProjectByIdQuery>()));
+            _projectRepositoryMock.Setup(z => z.UpdateAsync(request,project ,_currentUserMock.Object));
 
-            var handler = new UpdateProjectCommandHandler(_projectRepositoryMock.Object, _workspaceRepositoryMock.Object, _currentUserMock.Object);
-            //var projectUpdated = await handler.Handle(request, new System.Threading.CancellationToken());
+            var handler = new UpdateProjectCommandHandler(_projectRepositoryMock.Object, _methodesRepositoryMock.Object,_currentUserMock.Object);
+           
 
             await Assert.ThrowsAsync<BusinessRuleException>(
                  () => handler.Handle(request, new System.Threading.CancellationToken()));
+        }
+        [Fact]
+        public async void GetMethodEchec_ShouldThrowBusinessRuleException()
+        {
+            var request = new UpdateProjectCommand
+            {
+                ProjectId = Guid.Parse("CE854229-F5E7-4CCE-603B-08D85FD83293"),
+                Label = "nouvelle label",
+                Description = "nouvelle description",
+                Icon = "nouvelle icon"
+            };
+            var project = new Core.Entities.Project { };
+
+            _projectRepositoryMock.Setup(x => x.GetAsync(It.IsAny<GetProjectByIdQuery>()));
+            var handler = new UpdateProjectCommandHandler(_projectRepositoryMock.Object, _methodesRepositoryMock.Object, _currentUserMock.Object);
 
 
+            await Assert.ThrowsAsync<BusinessRuleException>(
+                 () => handler.Handle(request, new System.Threading.CancellationToken()));
+        }
+        [Fact]
+        public async void ProjectLabelAlreadyExist_ShouldThrowException()
+        {
+            //Arrange
+            var request = new UpdateProjectCommand
+            {
+                ProjectId = Guid.Parse("CE854229-F5E7-4CCE-603B-08D85FD83293"),
+                Label = "nouvelle label",
+                Description = "nouvelle description",
+                Icon = "nouvelle icon"
+            };
+            this._methodesRepositoryMock.Setup(x => x.UniqueName(request.Label, new System.Threading.CancellationToken()))
+                .ReturnsAsync(false);
 
+            // Act
+            var handler = new UpdateProjectCommandHandler(_projectRepositoryMock.Object, _methodesRepositoryMock.Object, _currentUserMock.Object);
 
+            // Assert
+            await Assert.ThrowsAsync<BusinessRuleException>(
+                () => handler.Handle(request, new System.Threading.CancellationToken()));
         }
     }
 }

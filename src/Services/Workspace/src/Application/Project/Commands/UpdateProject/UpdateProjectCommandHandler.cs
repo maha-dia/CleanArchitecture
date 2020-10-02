@@ -15,36 +15,32 @@ namespace Application.Project.Commands.UpdateProject
     {
         private readonly IProjectRepository _projectRepository;
         private readonly ICurrentUserService _currentUserService;
-        private readonly IWorkspaceRepository _workspaceRepository;
+        private readonly IMethodesRepository _methodesRepository;
 
-        public  UpdateProjectCommandHandler(IProjectRepository projectRepository,IWorkspaceRepository workspaceRepository,ICurrentUserService currentUserService)
+        public  UpdateProjectCommandHandler(IProjectRepository projectRepository,IMethodesRepository methodesRepository, ICurrentUserService currentUserService)
         {
             _projectRepository = projectRepository;
             _currentUserService = currentUserService;
-            _workspaceRepository = workspaceRepository;
+            _methodesRepository = methodesRepository;
         }
         public async Task<Unit> Handle(UpdateProjectCommand request, CancellationToken cancellationToken)
         {
+            if (request.ProjectId == Guid.Empty)
+            {
+                throw new BusinessRuleException("The project doesn't exist");
+            }
             var getEntity = new GetProjectByIdQuery
             {
                 Id = request.ProjectId,
             };
-            var entity =await _projectRepository.GetAsync(getEntity);
-            if (request.ProjectId != entity.ProjectId)
+            var project =await _projectRepository.GetAsync(getEntity);
+            var exist = await _methodesRepository.UniqueName(request.Label, cancellationToken);
+            if (!exist)
             {
-                throw new BusinessRuleException("it doesn't exist");
-            }
-            if(request.ProjectId == Guid.Empty)
-            {
-                throw new BusinessRuleException("invalid parameter");
-            }
-            //var exist = await _workspaceRepository.UniqueName(request.Label, cancellationToken);
-            //if(!exist)
-            //{
-            //    throw new BusinessRuleException("is alredy exist");
+                throw new BusinessRuleException("is alredy exist");
 
-            //}
-            await _projectRepository.UpdateAsync(request, _currentUserService);
+            }
+            await _projectRepository.UpdateAsync(request,project, _currentUserService);
 
             return Unit.Value;
         }

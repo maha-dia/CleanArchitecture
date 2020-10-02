@@ -76,16 +76,11 @@ namespace Infrastructure.Repositories
             return project;
         }
 
-        
 
-        public async Task<Unit> UpdateAsync(UpdateProjectCommand query, ICurrentUserService currentUserService)
+
+        public async Task<Unit> UpdateAsync(UpdateProjectCommand query,Project project, ICurrentUserService currentUserService)
         {
-            var queryUpdate = new GetProjectByIdQuery { Id = query.ProjectId };
-            var project = await GetAsync(queryUpdate);
-            if ( project== null)
-            {
-                throw new NotFoundException(nameof(Project), query.ProjectId);
-            }
+           
             project.Label = query.Label;
             project.Description = query.Description;
             project.Icon = query.Icon;

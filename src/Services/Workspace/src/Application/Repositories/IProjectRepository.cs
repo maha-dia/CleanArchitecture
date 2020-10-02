@@ -18,7 +18,7 @@ namespace Application.Repositories
         /// 
         /// </summary>
         /// <param name="command,workspace,currentUserService">CreateProjectCommand,Workspace,ICurrentUserService</param>
-        /// <returns></returns>
+        /// <returns>string</returns>
         Task<string> CreateAsync(CreateProjectCommand command,Core.Entities.Workspace workspace,ICurrentUserService currentUserService);
 
         /// <summary>
@@ -31,9 +31,9 @@ namespace Application.Repositories
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="Project"></param>
-        /// <returns></returns>
-        Task<Unit> UpdateAsync(UpdateProjectCommand query,ICurrentUserService currentUserService);
+        /// <param name="query,currentUserService,project">UpdateProjectCommand,ICurrentUserService,Project</param>
+        /// <returns>Unit</returns>
+        Task<Unit> UpdateAsync(UpdateProjectCommand query,Core.Entities.Project project,ICurrentUserService currentUserService);
 
         /// <summary>
         /// 
