@@ -3,6 +3,7 @@ using Application.Workspace.Commands.DeleteWorkspace;
 using Application.Workspace.Commands.UpdateWorkspace;
 using Application.Workspace.Queries.GetAllWorkspaces;
 using Application.Workspace.Queries.GetWorkspace;
+using Application.Workspace.Queries.GetWorkspaceByKeyWord;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -53,6 +54,18 @@ namespace Web.Controllers
         /// <returns>WorkspacesDTOLists</returns>
         [HttpGet("GetAll")]
         public async Task<ActionResult<WorkspacesDTOLists>> GetAll([FromQuery] GetAllWorkspaceQuery query)
+        {
+            var result = await this._mediator.Send(query);
+            return result;
+        }
+
+        /// <summary>
+        /// Get Workspaces By Key word 
+        /// </summary>
+        /// <param name="query">GetAllWorkspaceQuery</param>
+        /// <returns>WorkspacesDTOLists</returns>
+        [HttpGet("search")]
+        public async Task<ActionResult<WorkspaceDtoLists>> GetByKeyWord([FromQuery] GetWorkspaceByKeyWord query)
         {
             var result = await this._mediator.Send(query);
             return result;

@@ -4,6 +4,7 @@ using Application.Workspace.Commands.DeleteWorkspace;
 using Application.Workspace.Commands.UpdateWorkspace;
 using Application.Workspace.Queries.GetAllWorkspaces;
 using Application.Workspace.Queries.GetWorkspace;
+using Application.Workspace.Queries.GetWorkspaceByKeyWord;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -51,5 +52,12 @@ namespace Application.Repositories
         /// <param name="workspaceId,currentUserService,cancellationToken">DeleteWorkspaceCommad</param>
         /// <returns>DeleteWorkspaceReturnDto</returns>
         Task<DeleteWorkspaceReturnDto> DeleteAsync(DeleteWorkspaceCommad workspaceId, ICurrentUserService currentUserService, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keyWord">GetWorkspaceByKeyWord</param>
+        /// <returns>WorkspacesDTOLists</returns>
+        Task<WorkspaceDtoLists> GetByKeyWord(GetWorkspaceByKeyWord keyWord);
     }
 }

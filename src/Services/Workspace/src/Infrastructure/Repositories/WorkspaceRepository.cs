@@ -6,6 +6,7 @@ using Application.Workspace.Commands.DeleteWorkspace;
 using Application.Workspace.Commands.UpdateWorkspace;
 using Application.Workspace.Queries.GetAllWorkspaces;
 using Application.Workspace.Queries.GetWorkspace;
+using Application.Workspace.Queries.GetWorkspaceByKeyWord;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Core.Entities;
@@ -95,6 +96,13 @@ namespace Infrastructure.Repositories
             return Workspace;
         }
 
+        public async Task<WorkspaceDtoLists> GetByKeyWord(GetWorkspaceByKeyWord keyWord)
+        {
+            var workspacesList = await _context.Workspaces.ProjectTo<WorkspacesDtoKW>(_mapper.ConfigurationProvider)
+                                .Where(w => w.Name.Contains(keyWord.KeyWord)).ToListAsync();
+            var result = new WorkspaceDtoLists { Workspaces = workspacesList };
+            return result;
+        }
 
         public async Task<Core.Entities.Workspace> UpdataAsync(UpdateWorkspaceCommand workspace, ICurrentUserService currentUser, CancellationToken cancellationToken)
         {

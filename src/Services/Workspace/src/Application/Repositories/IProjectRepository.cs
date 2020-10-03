@@ -3,6 +3,7 @@ using Application.Project.Commands;
 using Application.Project.Commands.DeleteProject;
 using Application.Project.Commands.UpdateProject;
 using Application.Project.Queries.GetProjectById;
+using Application.Project.Queries.GetProjectByKeyWord;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -41,5 +42,12 @@ namespace Application.Repositories
         /// <param name="query,currentUserService">DeleteProjectCommand, ICurrentUserService</param>
         /// <returns>DeleteProjectDto</returns>
         Task<DeleteProjectDto> DeleteAsync(DeleteProjectCommand query, ICurrentUserService currentUserService);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="query">GetProjectByKeyWordQuery</param>
+        /// <returns>Project</returns>
+        Task<ProjectsDTOLists> GetByKeyWordAsync(GetProjectByKeyWordQuery query);
     }
 }

@@ -4,7 +4,10 @@ using Application.Project.Commands;
 using Application.Project.Commands.DeleteProject;
 using Application.Project.Commands.UpdateProject;
 using Application.Project.Queries.GetProjectById;
+using Application.Project.Queries.GetProjectByKeyWord;
 using Application.Repositories;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Core.Entities;
 using Infrastructure.Persistence;
 using MediatR;
@@ -23,12 +26,15 @@ namespace Infrastructure.Repositories
     {
         private readonly ICurrentUserService _currentUserService;
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
         public ProjectRepository(ICurrentUserService currentUserService,
-            ApplicationDbContext context)
+                                 ApplicationDbContext context,
+                                 IMapper mapper)
         {
             _currentUserService = currentUserService;
             _context = context;
+            _mapper = mapper;
 
         }
         public async Task<string> CreateAsync(CreateProjectCommand command,Workspace workspace, ICurrentUserService _currentUserService)
@@ -76,7 +82,16 @@ namespace Infrastructure.Repositories
             return project;
         }
 
-
+        public async Task<ProjectsDTOLists> GetByKeyWordAsync(GetProjectByKeyWordQuery query)
+        {
+            var result =  await _context.projects.ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
+                .Where(p => p.Label.Contains(query.KeyWord)).ToListAsync();
+            var resultDto = new ProjectsDTOLists
+            {
+                Projects = result
+            };
+            return resultDto;
+        }
 
         public async Task<Unit> UpdateAsync(UpdateProjectCommand query,Project project, ICurrentUserService currentUserService)
         {

@@ -2,6 +2,7 @@
 using Application.Project.Commands.DeleteProject;
 using Application.Project.Commands.UpdateProject;
 using Application.Project.Queries.GetProjectById;
+using Application.Project.Queries.GetProjectByKeyWord;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -43,6 +44,18 @@ namespace Web.Controllers
             var result = await this._mediator.Send(query);
             return result;
         }
+        /// <summary>
+        /// Seach Project
+        /// </summary>
+        /// <param name="query"> GetProjectByKeyWordQuery</param>
+        /// <returns>Projects</returns>
+        [HttpGet("search")]
+        public async Task<ProjectsDTOLists> GetByKeyWord([FromQuery] GetProjectByKeyWordQuery query)
+        {
+            var result = await this._mediator.Send(query);
+            return result;
+        }
+
         /// <summary>
         /// Update Project
         /// </summary>
