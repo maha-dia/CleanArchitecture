@@ -51,10 +51,12 @@ namespace Infrastructure.Persistence
         }
         public DbSet<Workspace> Workspaces { get; set; }
         public DbSet<Project> projects { get; set; }
-
+        public DbSet<File>Files { get; set; }
+        public DbSet<Folder> Folders { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            
 
             base.OnModelCreating(builder);
         }

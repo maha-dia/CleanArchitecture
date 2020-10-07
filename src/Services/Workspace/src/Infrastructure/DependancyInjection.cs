@@ -26,6 +26,9 @@ namespace Infrastructure
             service.AddScoped<IWorkspaceRepository, WorkspaceRepository>();
             service.AddScoped<IProjectRepository, ProjectRepository>();
             service.AddScoped<IMethodesRepository, MethodesRepository>();
+            service.AddScoped<IFolderRepository, FolderRepository>();
+            service.AddScoped<IFileRepository, FileRepository>();
+
             return service;
         }
 

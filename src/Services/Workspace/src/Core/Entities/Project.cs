@@ -17,5 +17,8 @@ namespace Core.Entities
         //Model
         public virtual Workspace Workspace { get; set; }
 
+        public virtual ICollection<Folder> Folders { get; set; }
+
+
     }
 }
