@@ -15,13 +15,13 @@ namespace Application.Folder.Commands.RenameFolder
     {
         private readonly IFolderRepository _folderRepository;
         private readonly ICurrentUserService _currentUserService;
-        private readonly IMethodesRepository _methodesRepository;
+        
 
-        public RenameFolderHandler(IFolderRepository folderRepository,ICurrentUserService currentUserService,IMethodesRepository methodesRepository)
+        public RenameFolderHandler(IFolderRepository folderRepository,ICurrentUserService currentUserService)
         {
             _folderRepository = folderRepository;
             _currentUserService = currentUserService;
-            _methodesRepository = methodesRepository;
+           
         }
         public async Task<string> Handle(RenameFolderCommand request, CancellationToken cancellationToken)
         {

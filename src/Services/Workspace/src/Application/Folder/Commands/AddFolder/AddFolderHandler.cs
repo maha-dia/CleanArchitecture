@@ -13,14 +13,12 @@ namespace Application.Folder.Commands
 {
     public class AddFolderHandler : IRequestHandler<AddFolderCommand, Core.Entities.Folder>
     {
-        private readonly IMethodesRepository _methodesRepository;
         private readonly IFolderRepository _folderRepository;
         private readonly ICurrentUserService _currentUserService;
         private readonly IProjectRepository _projectRepository;
 
-        public AddFolderHandler(IFolderRepository folderRepository,ICurrentUserService currentUserService,IProjectRepository projectRepository,IMethodesRepository methodesRepository)
+        public AddFolderHandler(IFolderRepository folderRepository,ICurrentUserService currentUserService,IProjectRepository projectRepository)
         {
-            _methodesRepository = methodesRepository;
             _folderRepository = folderRepository;
             _currentUserService = currentUserService;
             _projectRepository = projectRepository;
