@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application;
+using Infrastracture.Identity;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Builder;
@@ -31,16 +32,30 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowAll",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:5000",
+                                       "http://localhost:4200"
+                                       )
+                                       .AllowAnyHeader()
+                                       .AllowAnyMethod();
+                    });
+            });
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.
             ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
          );
+            services.AddIdentityInfrastructureDependancy(this.Configuration);
             services.AddCoreInjection();
             services.AddInfrastructureDependancy(this.Configuration);
             services.AddWebDependancy();
+            services.AddControllers();
             services.AddSwaggerSetup(this.Configuration);
             services.AddHttpContextAccessor();
+
             
 
 
@@ -55,13 +70,16 @@ namespace Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
+            
             app.UseRouting();
-
-            //app.UseAuthorization();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseSerilogRequestLogging();
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+            app.UseHttpsRedirection();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

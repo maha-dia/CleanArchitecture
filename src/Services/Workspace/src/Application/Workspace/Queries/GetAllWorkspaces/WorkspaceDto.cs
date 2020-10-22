@@ -8,6 +8,7 @@ namespace Application.Workspace.Queries.GetAllWorkspaces
 {
     public class WorkspaceDto:IMapForm<Core.Entities.Workspace>
     {
+        public Guid id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         
@@ -21,7 +22,7 @@ namespace Application.Workspace.Queries.GetAllWorkspaces
 
         public string DeletedBy { get; set; }
         public DateTime? DeletedAt { get; set; }
-        //public string Image { get; set; }
+        public string Image { get; set; }
         public string Owner { get; set; }
         public bool BookMark { get; set; }
         public bool IsPrivate { get; set; }

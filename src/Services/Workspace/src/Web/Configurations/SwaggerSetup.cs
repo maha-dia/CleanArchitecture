@@ -11,7 +11,7 @@ namespace Web.Configurations
     using Microsoft.OpenApi.Models;
     public static class SwaggerSetup
     {
-        public static IServiceCollection AddSwaggerSetup(this IServiceCollection services, IConfiguration configuration)
+        public static void AddSwaggerSetup(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSwaggerGen(c =>
             {
@@ -22,8 +22,33 @@ namespace Web.Configurations
                         Title = configuration["Application:Name"],
                         Version = configuration["Application:Version"]
                     });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    Description = "Input your Bearer token in this format - Bearer {your token here} to access this API",
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer",
+                            },
+                            Scheme = "Bearer",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+                        }, new List<string>()
+                    },
+                });
+
             });
-            return services;
         }
 
         public static IApplicationBuilder UseSwaggerSetup(this IApplicationBuilder app, IConfiguration configuration)

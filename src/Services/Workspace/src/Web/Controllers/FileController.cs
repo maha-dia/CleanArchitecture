@@ -1,4 +1,5 @@
 ﻿using Application.File;
+using Application.File.Commands.UploadFile;
 using Core.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +19,26 @@ namespace Web.Controllers
             _mediator = mediator;
         }
 
+        ///// <summary>
+        ///// Create new Project
+        ///// </summary>
+        ///// <param name="command"> CreateProjectCommand </param>
+        ///// <returns>string</returns>
+        //[HttpPost]
+        //public async Task<ActionResult<File>> Create(AddFileCommand command)
+        //{
+        //    var result = await this._mediator.Send(command);
+        //    return result;
+        //}
+
         /// <summary>
         /// Create new Project
         /// </summary>
         /// <param name="command"> CreateProjectCommand </param>
         /// <returns>string</returns>
         [HttpPost]
-        public async Task<ActionResult<File>> Create(AddFileCommand command)
+        
+        public async Task<Unit> Post(PostFileCommand command)
         {
             var result = await this._mediator.Send(command);
             return result;

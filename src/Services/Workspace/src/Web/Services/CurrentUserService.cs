@@ -12,8 +12,8 @@ namespace Web.Services
     {
         public CurrentUserService(IHttpContextAccessor httpContextAccessor )
         {
-             //UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-             UserId = "someone";
+             UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+             //UserId = "someone";
         }
         
             public string UserId { get;}

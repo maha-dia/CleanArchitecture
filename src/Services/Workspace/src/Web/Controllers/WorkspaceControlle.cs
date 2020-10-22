@@ -5,6 +5,8 @@ using Application.Workspace.Queries.GetAllWorkspaces;
 using Application.Workspace.Queries.GetWorkspace;
 using Application.Workspace.Queries.GetWorkspaceByKeyWord;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
+
     public class WorkspaceControlle : ApiController
     {
         private readonly IMediator _mediator;
@@ -28,6 +31,8 @@ namespace Web.Controllers
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
+
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult<Guid>> Create(CreateWorkspaceCommand command)
         {
             var result = await this._mediator.Send(command);
@@ -40,7 +45,8 @@ namespace Web.Controllers
         /// </summary>
         /// <param name="requestId">GetWorkspaceByIdQuery</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("id")]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult<Core.Entities.Workspace>> Get([FromQuery] GetWorkspaceByIdQuery requestId)
         {
             var result = await this._mediator.Send(requestId);
@@ -53,6 +59,7 @@ namespace Web.Controllers
         /// <param name="query">GetAllWorkspaceQuery</param>
         /// <returns>WorkspacesDTOLists</returns>
         [HttpGet("GetAll")]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult<WorkspacesDTOLists>> GetAll([FromQuery] GetAllWorkspaceQuery query)
         {
             var result = await this._mediator.Send(query);
