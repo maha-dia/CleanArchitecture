@@ -102,6 +102,7 @@ namespace Web.Controllers
         /// <param name="command"> Delete </param>
         /// <returns></returns>
         [HttpDelete("id")]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult<DeleteWorkspaceReturnDto>> Delete(Guid id)
         {
              var result = await this._mediator.Send(new DeleteWorkspaceCommad { WorkspaceId = id });

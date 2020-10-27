@@ -65,17 +65,17 @@ namespace Web.Controllers
         public async Task<ActionResult> Update(UpdateProjectCommand command)
         {
              await this._mediator.Send(command);
-            return NoContent();
+             return NoContent();
         }
         /// <summary>
         /// Delete Workspace
         /// </summary>
         /// <param name="command"> Delete </param>
         /// <returns></returns>
-        [HttpDelete]
-        public async Task<ActionResult<DeleteProjectDto>> Delete(DeleteProjectCommand command)
+        [HttpDelete("id")]
+        public async Task<ActionResult<DeleteProjectDto>> Delete(Guid id)
         {
-            var result = await this._mediator.Send(command);
+            var result = await this._mediator.Send(new DeleteProjectCommand {ProjectId = id } );
             return result;
         }
     }

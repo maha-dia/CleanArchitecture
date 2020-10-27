@@ -13,6 +13,6 @@ namespace Application.Workspace.Commands.UpdateWorkspace
         public string Image { get; set; }
         public bool BookMark { get; set; }
         public bool IsPrivate { get; set; }
-        // public string CreatedBy { get; set; }
+        public string Owner { get; set; }
     }
 }
