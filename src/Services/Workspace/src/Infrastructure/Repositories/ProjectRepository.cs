@@ -74,7 +74,8 @@ namespace Infrastructure.Repositories
 
         public async Task<Project> GetAsync(GetProjectByIdQuery query)
         {
-            var project = await _context.projects.Where(w => w.ProjectId == query.Id).SingleOrDefaultAsync();
+            var project = await _context.projects.Where(w => w.ProjectId == query.Id)
+                .Include(w => w.Folders).OrderBy(n => n.Created).SingleOrDefaultAsync();
             if(project == null)
             {
                 throw new NotFoundException(nameof(Project), query.Id);

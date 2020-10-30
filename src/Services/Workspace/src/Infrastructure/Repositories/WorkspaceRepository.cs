@@ -83,7 +83,7 @@ namespace Infrastructure.Repositories
             return new WorkspacesDTOLists
             {
                 WorkspacesLists = await _context.Workspaces.ProjectTo<WorkspaceDto>(_mapper.ConfigurationProvider)
-                .OrderBy(n => n.Created).ToListAsync(cancellationToken)
+                .OrderByDescending(n => n.Created).ToListAsync(cancellationToken)
             };
         
         }

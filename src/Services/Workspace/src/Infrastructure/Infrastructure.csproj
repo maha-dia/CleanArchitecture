@@ -21,6 +21,8 @@
     <Compile Remove="Migrations\20200908131224_ProjectWorkspace.Designer.cs" />
     <Compile Remove="Migrations\20201004192858_FileModel.cs" />
     <Compile Remove="Migrations\20201004192858_FileModel.Designer.cs" />
+    <Compile Remove="Migrations\20201027101445_GetFoldersinProjectModel.cs" />
+    <Compile Remove="Migrations\20201027101445_GetFoldersinProjectModel.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
