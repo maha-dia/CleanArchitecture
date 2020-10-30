@@ -2,6 +2,7 @@
 using Application.Workspace.Commands.DeleteWorkspace;
 using Application.Workspace.Commands.UpdateWorkspace;
 using Application.Workspace.Queries.GetAllWorkspaces;
+using Application.Workspace.Queries.GetLastModifiedWorkspace;
 using Application.Workspace.Queries.GetLastWorkspace;
 using Application.Workspace.Queries.GetWorkspace;
 using Application.Workspace.Queries.GetWorkspaceByKeyWord;
@@ -73,6 +74,18 @@ namespace Web.Controllers
         /// <returns>WorkspacesDTOLists</returns>
         [HttpGet("GetLastWorkspace")]
         public async Task<ActionResult<LastWorkspaceDto>> GetLast([FromQuery] GetLastWorkspaceQuery query)
+        {
+            var result = await this._mediator.Send(query);
+            return result;
+        }
+
+        /// <summary>
+        /// Get last Modified workspace 
+        /// </summary>
+        /// <param name="query">GetLastModifiedWorkspaceQuery</param>
+        /// <returns>WorkspacesLastModifiedDto</returns>
+        [HttpGet("GetLastModifiedWorkspace")]
+        public async Task<ActionResult<WorkspaceLastModifiedDto>> GetLastModified([FromQuery] GetLastModifiedWorkspaceQuery query)
         {
             var result = await this._mediator.Send(query);
             return result;

@@ -5,6 +5,7 @@ using Application.Workspace.Commands;
 using Application.Workspace.Commands.DeleteWorkspace;
 using Application.Workspace.Commands.UpdateWorkspace;
 using Application.Workspace.Queries.GetAllWorkspaces;
+using Application.Workspace.Queries.GetLastModifiedWorkspace;
 using Application.Workspace.Queries.GetLastWorkspace;
 using Application.Workspace.Queries.GetWorkspace;
 using Application.Workspace.Queries.GetWorkspaceByKeyWord;
@@ -110,6 +111,14 @@ namespace Infrastructure.Repositories
             var lastWorkspace = await _context.Workspaces.ProjectTo<LastWorkspaceDto>(_mapper.ConfigurationProvider)
                .OrderByDescending(w => w.Created).ToListAsync();
             var response = lastWorkspace.FirstOrDefault();
+            return response;
+        }
+
+        public async Task<WorkspaceLastModifiedDto> GetLastModifiedAsync(GetLastModifiedWorkspaceQuery request, CancellationToken cancellationToken)
+        {
+            var lastModifiedWorkspace = await _context.Workspaces.ProjectTo<WorkspaceLastModifiedDto>(_mapper.ConfigurationProvider)
+                .OrderByDescending(w => w.LastModified).ToListAsync();
+            var response = lastModifiedWorkspace.FirstOrDefault();
             return response;
         }
 
