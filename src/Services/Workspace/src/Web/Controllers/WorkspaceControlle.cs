@@ -2,6 +2,7 @@
 using Application.Workspace.Commands.DeleteWorkspace;
 using Application.Workspace.Commands.UpdateWorkspace;
 using Application.Workspace.Queries.GetAllWorkspaces;
+using Application.Workspace.Queries.GetLastWorkspace;
 using Application.Workspace.Queries.GetWorkspace;
 using Application.Workspace.Queries.GetWorkspaceByKeyWord;
 using MediatR;
@@ -61,6 +62,17 @@ namespace Web.Controllers
         [HttpGet("GetAll")]
         [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult<WorkspacesDTOLists>> GetAll([FromQuery] GetAllWorkspaceQuery query)
+        {
+            var result = await this._mediator.Send(query);
+            return result;
+        }
+        /// <summary>
+        /// Get last workspace 
+        /// </summary>
+        /// <param name="query">GetLastWorkspaceQuery</param>
+        /// <returns>WorkspacesDTOLists</returns>
+        [HttpGet("GetLastWorkspace")]
+        public async Task<ActionResult<LastWorkspaceDto>> GetLast([FromQuery] GetLastWorkspaceQuery query)
         {
             var result = await this._mediator.Send(query);
             return result;

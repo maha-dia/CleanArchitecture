@@ -3,6 +3,7 @@ using Application.Workspace.Commands;
 using Application.Workspace.Commands.DeleteWorkspace;
 using Application.Workspace.Commands.UpdateWorkspace;
 using Application.Workspace.Queries.GetAllWorkspaces;
+using Application.Workspace.Queries.GetLastWorkspace;
 using Application.Workspace.Queries.GetWorkspace;
 using Application.Workspace.Queries.GetWorkspaceByKeyWord;
 using MediatR;
@@ -38,6 +39,15 @@ namespace Application.Repositories
         /// <param name="request,cancellationToken">GetAllWorkspaceQuery,CancellationToken</param>
         /// <returns>WorkspacesDTOLists</returns>
         Task<WorkspacesDTOLists> GetAllAsync(GetAllWorkspaceQuery request, CancellationToken cancellationToken);
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request,cancellationToken">GetLastWorkspaceQuery,CancellationToken</param>
+        /// <returns>LastWorkspaceDto</returns>
+        Task<LastWorkspaceDto> GetLastAsync(GetLastWorkspaceQuery request, CancellationToken cancellationToken);
 
         /// <summary>
         /// 
