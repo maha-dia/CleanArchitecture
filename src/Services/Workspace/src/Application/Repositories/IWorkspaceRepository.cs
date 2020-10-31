@@ -7,6 +7,7 @@ using Application.Workspace.Queries.GetLastModifiedWorkspace;
 using Application.Workspace.Queries.GetLastWorkspace;
 using Application.Workspace.Queries.GetWorkspace;
 using Application.Workspace.Queries.GetWorkspaceByKeyWord;
+using Application.Workspace.Queries.GetWorkspacesCount;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -77,5 +78,12 @@ namespace Application.Repositories
         /// <param name="keyWord">GetWorkspaceByKeyWord</param>
         /// <returns>WorkspacesDTOLists</returns>
         Task<WorkspaceDtoLists> GetByKeyWord(GetWorkspaceByKeyWord keyWord);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="">GetWorkspacesCount</param>
+        /// <returns>int</returns>
+        Task<int> GetCount(GetWorkspacesCountQuery request);
     }
 }

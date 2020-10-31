@@ -6,6 +6,7 @@ using Application.Workspace.Queries.GetLastModifiedWorkspace;
 using Application.Workspace.Queries.GetLastWorkspace;
 using Application.Workspace.Queries.GetWorkspace;
 using Application.Workspace.Queries.GetWorkspaceByKeyWord;
+using Application.Workspace.Queries.GetWorkspacesCount;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -86,6 +87,18 @@ namespace Web.Controllers
         /// <returns>WorkspacesLastModifiedDto</returns>
         [HttpGet("GetLastModifiedWorkspace")]
         public async Task<ActionResult<WorkspaceLastModifiedDto>> GetLastModified([FromQuery] GetLastModifiedWorkspaceQuery query)
+        {
+            var result = await this._mediator.Send(query);
+            return result;
+        }
+
+        /// <summary>
+        /// Get workspaces count
+        /// </summary>
+        /// <param name="query">GetWorkspacesCountQuery</param>
+        /// <returns>int</returns>
+        [HttpGet("GetCount")]
+        public async Task<ActionResult<int>> GetCount([FromQuery] GetWorkspacesCountQuery query)
         {
             var result = await this._mediator.Send(query);
             return result;

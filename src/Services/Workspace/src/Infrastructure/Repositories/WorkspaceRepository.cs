@@ -9,6 +9,7 @@ using Application.Workspace.Queries.GetLastModifiedWorkspace;
 using Application.Workspace.Queries.GetLastWorkspace;
 using Application.Workspace.Queries.GetWorkspace;
 using Application.Workspace.Queries.GetWorkspaceByKeyWord;
+using Application.Workspace.Queries.GetWorkspacesCount;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Core.Entities;
@@ -104,6 +105,11 @@ namespace Infrastructure.Repositories
                                 .Where(w => w.Name.Contains(keyWord.KeyWord)).ToListAsync();
             var result = new WorkspaceDtoLists { Workspaces = workspacesList };
             return result;
+        }
+
+        public async  Task<int> GetCount(GetWorkspacesCountQuery request)
+        {
+            return await _context.Workspaces.CountAsync();
         }
 
         public async Task<LastWorkspaceDto> GetLastAsync(GetLastWorkspaceQuery request, CancellationToken cancellationToken)
