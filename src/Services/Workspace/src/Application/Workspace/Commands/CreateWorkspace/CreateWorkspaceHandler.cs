@@ -27,7 +27,7 @@ namespace Application.Workspace.Commands.CreateWorkspace
         public async Task<Guid> Handle(CreateWorkspaceCommand request, CancellationToken cancellationToken)
         {
 
-            // R01 Asset label is unique
+            // R01 Workspace label is unique
             if (!await _methodesRepository.UniqueName(request.Name, cancellationToken))
             {
                 throw new BusinessRuleException($" The specified Name '{request.Name}' already exists.");

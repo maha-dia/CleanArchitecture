@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.Account;
+using Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace Infrastracture.Identity.Model
         {
             return this.RefreshTokens?.Find(x => x.Token == token) != null;
         }
+       
+        public Member Member { get; set; }
 
     }
 }

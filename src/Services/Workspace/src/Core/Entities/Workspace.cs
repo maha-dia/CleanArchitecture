@@ -14,6 +14,7 @@ namespace Core.Entities
         {
             Projects = new Collection<Project>();
         }
+        
 
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -26,5 +27,7 @@ namespace Core.Entities
         
         public virtual ICollection<Project> Projects { get; set; }
         
+
+
     }
 }

@@ -21,6 +21,7 @@ namespace Core.Entities
         public virtual Workspace Workspace { get; set; }
 
         public virtual ICollection<Folder> Folders { get; set; }
+        public ICollection<ProjectsMembers> ProjectsMembers { get; set; }
 
 
     }

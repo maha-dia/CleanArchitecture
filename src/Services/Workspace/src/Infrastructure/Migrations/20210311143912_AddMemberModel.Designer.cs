@@ -4,14 +4,16 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210311143912_AddMemberModel")]
+    partial class AddMemberModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,24 +163,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("projects");
                 });
 
-            modelBuilder.Entity("Core.Entities.ProjectsMembers", b =>
-                {
-                    b.Property<Guid>("ProjectId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MemberID")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ProjectId", "MemberID");
-
-                    b.HasIndex("MemberID");
-
-                    b.ToTable("ProjectsMembers");
-                });
-
             modelBuilder.Entity("Core.Entities.Workspace", b =>
                 {
                     b.Property<Guid>("Id")
@@ -252,21 +236,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Entities.Workspace", "Workspace")
                         .WithMany("Projects")
                         .HasForeignKey("WorkspaceId");
-                });
-
-            modelBuilder.Entity("Core.Entities.ProjectsMembers", b =>
-                {
-                    b.HasOne("Core.Entities.Member", "Member")
-                        .WithMany("ProjectsMembers")
-                        .HasForeignKey("MemberID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Entities.Project", "Project")
-                        .WithMany("ProjectsMembers")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

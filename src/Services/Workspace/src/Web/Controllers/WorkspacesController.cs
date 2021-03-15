@@ -49,7 +49,8 @@ namespace Web.Controllers
         /// <param name="id">GetWorkspaceByIdQuery</param>
         /// <returns></returns>
         [HttpGet("id")]
-        
+        [Authorize(Roles = "SuperAdmin")]
+
         public async Task<ActionResult<Core.Entities.Workspace>> Get(Guid id)
         {
             var result = await this._mediator.Send(new GetWorkspaceByIdQuery { WorkspaceRequestId = id }) ;
@@ -62,7 +63,7 @@ namespace Web.Controllers
         /// <param name="query">GetAllWorkspaceQuery</param>
         /// <returns>WorkspacesDTOLists</returns>
         [HttpGet("getAll")]
-        
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult<WorkspacesDTOLists>> GetAll([FromQuery] GetAllWorkspaceQuery query)
         {
             var result = await this._mediator.Send(query);
