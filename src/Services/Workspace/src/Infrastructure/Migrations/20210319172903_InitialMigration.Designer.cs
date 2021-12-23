@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201006085405_AddForykeyToFolderAndProjectEntites")]
-    partial class AddForykeyToFolderAndProjectEntites
+    [Migration("20210319172903_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -26,6 +26,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("FileId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("Content")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -37,6 +40,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("LastModified")
@@ -100,6 +106,17 @@ namespace Infrastructure.Migrations
                     b.ToTable("Folders");
                 });
 
+            modelBuilder.Entity("Core.Entities.Member", b =>
+                {
+                    b.Property<Guid>("MemberID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("MemberID");
+
+                    b.ToTable("Members");
+                });
+
             modelBuilder.Entity("Core.Entities.Project", b =>
                 {
                     b.Property<Guid>("ProjectId")
@@ -144,6 +161,21 @@ namespace Infrastructure.Migrations
                     b.HasIndex("WorkspaceId");
 
                     b.ToTable("projects");
+                });
+
+            modelBuilder.Entity("Core.Entities.ProjectsMembers", b =>
+                {
+                    b.Property<Guid>("ProjectId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MemberId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ProjectId", "MemberId");
+
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("ProjectsMembers");
                 });
 
             modelBuilder.Entity("Core.Entities.Workspace", b =>
@@ -199,14 +231,14 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Entities.File", b =>
                 {
                     b.HasOne("Core.Entities.Folder", "Parent")
-                        .WithMany()
+                        .WithMany("Files")
                         .HasForeignKey("ParentFolderId");
                 });
 
             modelBuilder.Entity("Core.Entities.Folder", b =>
                 {
                     b.HasOne("Core.Entities.Folder", "Parent")
-                        .WithMany()
+                        .WithMany("components")
                         .HasForeignKey("ParentFolderId");
 
                     b.HasOne("Core.Entities.Project", "Project")
@@ -219,6 +251,21 @@ namespace Infrastructure.Migrations
                     b.HasOne("Core.Entities.Workspace", "Workspace")
                         .WithMany("Projects")
                         .HasForeignKey("WorkspaceId");
+                });
+
+            modelBuilder.Entity("Core.Entities.ProjectsMembers", b =>
+                {
+                    b.HasOne("Core.Entities.Member", "Member")
+                        .WithMany("ProjectsMembers")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Project", "Project")
+                        .WithMany("ProjectsMembers")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

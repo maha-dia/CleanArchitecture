@@ -37,6 +37,24 @@ namespace Infrastructure.Repositories
             _mapper = mapper;
 
         }
+
+
+        public async Task<Unit> AddMembersToProject(Guid MemberID, Guid ProjectId)
+        {
+            //var project = await _context.projects.Where(e => e.ProjectId == ProjectId).SingleOrDefaultAsync();
+            //var member = await _context.Members.Where(e => e.MemberID == MemberID).SingleOrDefaultAsync();
+            ////var many = await _context.ProjectsMembers.AddAsync();
+            //project.ProjectsMembers.Add(new ProjectsMembers
+            //{
+            //    MemberID = MemberID,
+            //    ProjectId = ProjectId,
+            //    Member = member,
+            //    Project = project
+            //});
+            //await _context.SaveChangesAsync();
+            return Unit.Value;
+        }
+
         public async Task<string> CreateAsync(CreateProjectCommand command,Workspace workspace, ICurrentUserService _currentUserService)
         {
             var project = new Project

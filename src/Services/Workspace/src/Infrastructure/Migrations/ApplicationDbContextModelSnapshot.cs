@@ -106,11 +106,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Entities.Member", b =>
                 {
-                    b.Property<Guid>("MemberID")
+                    b.Property<Guid>("MemberId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("MemberID");
+                    b.HasKey("MemberId");
 
                     b.ToTable("Members");
                 });
@@ -166,15 +166,12 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("MemberID")
+                    b.Property<Guid>("MemberId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.HasKey("ProjectId", "MemberId");
 
-                    b.HasKey("ProjectId", "MemberID");
-
-                    b.HasIndex("MemberID");
+                    b.HasIndex("MemberId");
 
                     b.ToTable("ProjectsMembers");
                 });
@@ -258,14 +255,14 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Core.Entities.Member", "Member")
                         .WithMany("ProjectsMembers")
-                        .HasForeignKey("MemberID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Project", "Project")
                         .WithMany("ProjectsMembers")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

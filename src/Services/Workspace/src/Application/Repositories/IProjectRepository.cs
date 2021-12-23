@@ -49,5 +49,11 @@ namespace Application.Repositories
         /// <param name="query">GetProjectByKeyWordQuery</param>
         /// <returns>Project</returns>
         Task<ProjectsDTOLists> GetByKeyWordAsync(GetProjectByKeyWordQuery query);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="query">AddMembersToProject</param>
+        /// <returns></returns>
+        Task<Unit> AddMembersToProject(Guid MemberID, Guid ProjectId);
     }
 }

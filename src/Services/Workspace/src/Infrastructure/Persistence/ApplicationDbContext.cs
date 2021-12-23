@@ -53,25 +53,28 @@ namespace Infrastructure.Persistence
         public DbSet<Project> projects { get; set; }
         public DbSet<File>Files { get; set; }
         public DbSet<Folder> Folders { get; set; }
-        public DbSet<Member> Members { get; set; }
+        //public DbSet<Member> Members { get; set; }
         public DbSet<ProjectsMembers> ProjectsMembers { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            builder.Entity<ProjectsMembers>()
-              .HasKey(aup => new { aup.ProjectId, aup.MemberID });
-
-            builder.Entity<ProjectsMembers>()
-        .HasOne(m => m.Member)
-        .WithMany(b => b.ProjectsMembers)
-        .HasForeignKey(m => m.MemberID);
-            builder.Entity<ProjectsMembers>()
-                .HasOne(bc => bc.Project)
-                .WithMany(c => c.ProjectsMembers)
-                .HasForeignKey(bc => bc.ProjectId);
+            
 
             base.OnModelCreating(builder);
             
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            //builder.Entity<Member>().HasKey(k => new { k.MemberId });
+            builder.Entity<Project>().HasKey(k => new { k. ProjectId});
+
+            builder.Entity<ProjectsMembers>()
+              .HasKey(aup => new { aup.MemberId, aup.ProjectId });
+
+            
+            builder.Entity<ProjectsMembers>()
+                .HasOne(bc => bc.Project)
+                .WithMany(c => c.ProjectsMembers)
+                .HasForeignKey(bc => bc.ProjectId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
         }
     }

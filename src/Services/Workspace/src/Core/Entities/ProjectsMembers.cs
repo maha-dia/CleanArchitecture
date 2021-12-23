@@ -6,11 +6,12 @@ namespace Core.Entities
 {
     public class ProjectsMembers
     {
-            public Guid Id { get; set; }
-            public Guid MemberID { get; set; }
-            public virtual Member Member { get; set; }
-            public Guid ProjectId { get; set; }
-            public virtual Project Project { get; set; }
-        
+
+        public int Id { get; set; }
+        public Guid MemberId { get; set; }
+       // public Member Member { get; set; }
+        public Guid ProjectId { get; set; }
+        public Project Project { get; set; }
+
     }
 }

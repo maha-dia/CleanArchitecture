@@ -1,4 +1,5 @@
 ﻿using Application.Project.Commands;
+using Application.Project.Commands.AddMemberToProject;
 using Application.Project.Commands.DeleteProject;
 using Application.Project.Commands.UpdateProject;
 using Application.Project.Queries.GetProjectById;
@@ -76,6 +77,13 @@ namespace Web.Controllers
         public async Task<ActionResult<DeleteProjectDto>> Delete(Guid id)
         {
             var result = await this._mediator.Send(new DeleteProjectCommand {ProjectId = id } );
+            return result;
+        }
+
+        [HttpPost("addMember")]
+        public async Task<ActionResult<Unit>> Add(AddMemberToProject command)
+        {
+             var result = await this._mediator.Send(command);
             return result;
         }
     }
